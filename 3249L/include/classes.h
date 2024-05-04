@@ -12,18 +12,21 @@ class Bot{
     double error;
     bool PurePursuit;
     double Heading;
+    double x;
+    double y;
     //very much needed
     Bot();
     void RelativeForward(float Distance);
     void RelativeRotate(float Deg);
     void RelativeHardStop(float Distance);
     void RelativeCurve(int[1] p1,int[1] p2);
-    void AbsoluteForward(int x,int y);
+    void AbsoluteForward(float x,float y);
     void AbsoluteRotate(float Deg);
     void AbsoluteHardStop(int x, int y);
     void AbsoluteCurve(int[1] p1,int[1] p2, int[1] p3);
 
 };
+extern Bot bot;
 
 class Lambda{
     public:
@@ -32,7 +35,7 @@ class Lambda{
     void Activate();//Lambda.Activate();
     void Deactivate();//Lambda.DeActivate();
 };
-
+Lambda lambda;
 class Conveyor{
     public:
     bool Climbing;
@@ -41,3 +44,4 @@ class Conveyor{
     void Climb();//Conveyor.Climb();
     void Intake();//Conveyor.Intake();
 };
+Conveyor conveyor;

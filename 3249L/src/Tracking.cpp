@@ -15,10 +15,10 @@ class Bot(){
     bool PurePursuit;
 }
 double DegToRad(double x) {
-    return (x * (pi/180));
+    return (x * (M_PI/180));
 }
 double RadToDeg(double x) {
-    return (x* (180/pi));
+    return (x* (180/M_PI));
 }
 
 void Odometry(){
