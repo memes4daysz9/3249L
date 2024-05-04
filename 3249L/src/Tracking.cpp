@@ -1,8 +1,6 @@
 #include "main.h"
 
-const double radius;
-const double TrackLength;
-class Bot(){
+Bot::Bot(){
     int RDeg;
     int LDeg;
     double LTar;
@@ -26,25 +24,28 @@ void Odometry(){
     double DeltaRight;
     double LastL;
     double LastR;
+    double LastHeading;
 
     while (1){
-        Bot.RDeg = 1;//replace with Motor degrees
-        Bot.LDeg = 1;
+        bot.RDeg = 1;//replace with Motor degrees
+        bot.LDeg = 1;
 
-        DeltaLeft = (Bot.LDeg - LastL);
-        DeltaRight = (Bot.RDeg - LastR);
+        DeltaLeft = (bot.LDeg - LastL);
+        DeltaRight = (bot.RDeg - LastR);
 
-        Bot.LDis = DegToRad(DeltaLeft) * radius;
-        Bot.RDis = DegToRad(DeltaRight) * radius;
+        bot.LDis = DegToRad(DeltaLeft) * radius;
+        bot.RDis = DegToRad(DeltaRight) * radius;
 
-        Bot.Dis = (Bot.LDis + Bot.RDis)/2.0;
-        Bot.Heading = (Bot.Heading - LastHeading);
+        bot.Dis = (bot.LDis + bot.RDis)/2.0;
+        bot.Heading = (bot.Heading - LastHeading);
 
-        Bot.x += Bot.Dis * cos(Bot.Heading);
-        Bot.y += Bot.Dis * sin(Bot.Heading);
-        bot.Heading += (bot.LDis - bot.RDis)/ TrackLength
+        bot.x += bot.Dis * cos(bot.Heading);
+        bot.y += bot.Dis * sin(bot.Heading);
+        bot.Heading += (bot.LDis - bot.RDis)/ TrackLength;
 
-        LastL = Bot.LDeg;
-        LastR = Bot.RDeg;
+        LastL = bot.LDeg;
+        LastR = bot.RDeg;
+
+        LastHeading = bot.Heading;
     }
 }

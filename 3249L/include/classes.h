@@ -14,16 +14,17 @@ class Bot{
     double Heading;
     double x;
     double y;
+    bool failed;
     //very much needed
     Bot();
     void RelativeForward(float Distance);
     void RelativeRotate(float Deg);
-    void RelativeHardStop(float Distance);
-    void RelativeCurve(int[1] p1,int[1] p2);
+    void RelativeForwardHardStop(float Distance);
+    void RelativeCurve(int p1[1],int p2[1]);
     void AbsoluteForward(float x,float y);
     void AbsoluteRotate(float Deg);
     void AbsoluteHardStop(int x, int y);
-    void AbsoluteCurve(int[1] p1,int[1] p2, int[1] p3);
+    void AbsoluteCurve(int p1[1] ,int p2[1], int p3[1]);
 
 };
 extern Bot bot;

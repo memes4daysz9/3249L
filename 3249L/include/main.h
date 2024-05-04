@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "classes.h"
+#include "globals.h"
 
 /**
  * You should add more #includes here
