@@ -1,0 +1,29 @@
+#include "main.h"
+
+void InchesToDegrees(float distance){double AngleConversion = distance/((M_PI * diameter)/360); return AngleConversion;}
+
+Bot::RelativeForward(float distance){
+
+    const double diameter = 3.25;
+    double Output;
+    double I;
+    double lastError;
+    Bot.LTar = InchesToDegrees() + Bot.LDeg;
+    Bot.RTar = InchesToDegrees() + Bot.RDeg;
+    Bot.error = ((Bot.LTar - Bot.LDeg) + (Bot.RTar - Bot.LDeg))/2;
+    kP = 30;
+    kI = 0.1;
+    kD = 1;
+    while(1){
+        Bot.error = ((Bot.LTar - Bot.LDeg) + (Bot.RTar - Bot.LDeg))/2;
+        I=(I+Bot.error) * kI;
+        Output = (Bot.error * kP) + I + ((Bot.error - LastError)*kD);
+        LastError = error;
+        }
+}
+
+Bot::AbsoluteForward(int x,int y){
+    Bot.LTar = (x - Bot.x);
+    Bot.RTar = (y - Bot.y);
+    
+}

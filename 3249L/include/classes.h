@@ -12,6 +12,7 @@ class Bot{
     double error;
     bool PurePursuit;
     double Heading;
+    //very much needed
     Bot();
     void RelativeForward(float Distance);
     void RelativeRotate(float Deg);
