@@ -3,6 +3,8 @@
 
 double InchesToDegrees(float distance){const double diameter = 3.25;double AngleConversion = distance/((M_PI * diameter)/360); return AngleConversion;}
 
+double RotationToDegrees(double degrees){return (((degrees * (M_PI / 180))*(TrackLength/2))/diameter*360)/2;}
+
 Bot bot;
 double DegToRad(double x) {
     return (x * (M_PI/180));
@@ -58,7 +60,17 @@ void Bot::AbsoluteForward(float x,float y){ // x = processed X = processed
         theta = atan(Y/X);
         //turn Left
     }
+    /*
+        odom.RightTarget = DegreesToMove + odom.RightMotorEncoder;
+        odom.LeftTarget = DegreesToMove + odom.LeftMotorEncoder;
+    */
+    bot.RTar = 
+    bot.error = ;
+
     while (1){ // rotation first
+
+    }
+    while(1){// going forward
 
     }
     

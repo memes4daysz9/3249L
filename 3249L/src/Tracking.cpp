@@ -1,7 +1,7 @@
 #include "main.h"
 
 const double radius;
-
+const double TrackLength;
 class Bot(){
     int RDeg;
     int LDeg;
@@ -40,8 +40,9 @@ void Odometry(){
         Bot.Dis = (Bot.LDis + Bot.RDis)/2.0;
         Bot.Heading = (Bot.Heading - LastHeading);
 
-        Bot.x = Bot.Dis * cos(Bot.Heading);
-        Bot.y = Bot.Dis * sin(Bot.Heading);
+        Bot.x += Bot.Dis * cos(Bot.Heading);
+        Bot.y += Bot.Dis * sin(Bot.Heading);
+        bot.Heading += (bot.LDis - bot.RDis)/ TrackLength
 
         LastL = Bot.LDeg;
         LastR = Bot.RDeg;
