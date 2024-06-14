@@ -2,11 +2,10 @@
 
 class Bot{
     public:
-    int RDeg;
+    int RDeg;//only goes to 360, so only need very little
     int LDeg;
-    double LTar;
-    double RTar;
-    double Dis;
+    float LTar;
+    float RTar;//double 4 byte = 8 byte
     double LDis;
     double RDis;
     double error;
