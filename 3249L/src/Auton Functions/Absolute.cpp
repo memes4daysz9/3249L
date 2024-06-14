@@ -2,7 +2,7 @@
 
 
 
-void Bot::AbsoluteForward(float x,float y){ // x = unprocessed X = processed
+void Bot::AbsoluteGoTo(float x,float y){ // x = unprocessed X = processed
     double X = (x - bot.x);
     double Y = (y - bot.y);
     bool TurnLeft;
@@ -60,4 +60,34 @@ void Bot::AbsoluteForward(float x,float y){ // x = unprocessed X = processed
         LastError = bot.error;
     }
     
+}
+
+bot::AbsoluteRotate(float Deg){// Deg = unproccesed DEG = proccessed
+    int RSMul;
+    double DEG = bot.Heading - Deg;
+    double LastError;
+    double output;
+    double I;
+    if (DEG < 0){
+        RSMul = 1;
+    }else{
+        RSMul = -1;
+    }
+    bot.RTar = RotationToDegrees(DEG);
+    bot.error = bot.RTar - bot.RDeg;
+    while (bot.error >= Tolerance && !bot.failed){
+        bot.error = bot.RTar - bot.RDeg;
+        I = (I + bot.error) * kD;
+        output = (error * kP) + I + ((bot.error - LastError)*kD);
+        LastError = bot.error;
+        //RightMotor.move_voltage(output * RSMul);
+        //LeftMotor.move_voltage(output * (RSMul * -1));
+    }
+
+
+}
+bot::AbsoluteCurve(int p1[1] ,int p2[1], int p3[1]){
+    AbsoluteGoTo(p1[0],p1[1]);//quick shortcut lmao
+    RelativeCurve(p2[0],p2[1],p3[0],p3[1]);
+
 }

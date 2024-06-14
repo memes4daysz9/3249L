@@ -21,7 +21,7 @@ class Bot{
     void RelativeRotate(float Deg);
     void RelativeForwardHardStop(float Distance);
     void RelativeCurve(int p1[1],int p2[1]);
-    void AbsoluteForward(float x,float y);
+    void AbsoluteGoTo(float x,float y);
     void AbsoluteRotate(float Deg);
     void AbsoluteHardStop(int x, int y);
     void AbsoluteCurve(int p1[1] ,int p2[1], int p3[1]);
