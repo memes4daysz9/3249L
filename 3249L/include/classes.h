@@ -2,7 +2,7 @@
 
 class Bot{
     public:
-    int RDeg;//only goes to 360, so only need very little
+    int RDeg;
     int LDeg;
     float LTar;
     float RTar;//double 4 byte = 8 byte
