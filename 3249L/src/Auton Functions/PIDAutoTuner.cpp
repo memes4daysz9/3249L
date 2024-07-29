@@ -1,22 +1,25 @@
 #include "main.h"
 
-const int Tolerance = 30;//motor degrees
-void AutoTune(){//start with P then move to I then D
+const int Tolerance = 6;//motor degrees, may change if friction is much different from last year
+const int OverShootAmt = 1;
+int MaxWorkingDistance;
+int MinWorkingDistance;
+void AutoTune(){//start with P then move to D then I
     double minP = 1;
     bool GotPValue = false;
     double TestingP;
     double LastP;
     double Adder = 10;//how much to add to each variable per their test run
-    while (RDeg < Tolerance){
-        //P tuning
+    while (RDeg < InchesToDegrees(5)){
+        //P tuning/KickStarter
         //get the lowest value for P possible
 
-        //motor.move_voltage(minP);
-        minP += 10;
+        //motor.move_voltage(minP*5);//5 for the lowest number tested, as the error gets higher, so will the output
+        minP += 1;
     }
     TestingP = minP;
     while (!GotPValue){
-        if(ForwardPTest(10,TestingP)){
+        if(ForwardPTest(10,TestingP)&&ForwardPTest(5,TestingP)&&ForwardPTest(15,TestingP)){
             TestingP = LastP + Adder;
         }else{
             if(Adder < 1){
@@ -24,14 +27,37 @@ void AutoTune(){//start with P then move to I then D
                 
             }else{
                 Adder = Adder/10; //10, 1, 0.1
-                TestingP = -(Adder + Adder);//worse case, it makes you do 10 more
+                TestingP = -(Adder);
             }
         }
         kP = TestingP;
-        RollBack(10);
         LastP = TestingP;
     }
-    Adder = 0.1;//for I setup
+    kP = LastP;
+    Adder = 1;//for D setup
+
+    bool GotDValue = false;
+    double TestingD;
+    double LastD;
+    while (!GotDValue){
+        if(ForwardDTest(10,TestingD)&&ForwardDTest(5,TestingD)&&ForwardDTest(15,TestingD)){
+            TestingD = LastD + Adder;
+        }else{
+            if(Adder < 1){
+                GotDValue = true;//exiting loop
+                
+            }else{
+                Adder = Adder/10; // 1, 0.1, 0.01
+                TestingD = -(Adder);
+            }
+        }
+        kD = TestingD;
+
+        LastD = TestingD;
+    }
+    kD = LastD;
+
+    Adder = 0.1;// for I
     bool GotIValue = false;
     double TestingI;
     double LastI;
@@ -45,6 +71,32 @@ void AutoTune(){//start with P then move to I then D
             }else{
                 Adder = Adder/10; //0.1, 0.01
                 TestingI = -(Adder);
+            }
+        }
+        kI = TestingI;
+        LastI = TestingI;
+    }
+
+    if (GotPValue && GotIValue && GotDValue){
+        Adder = 20;
+        bool Break = false;
+        while (Adder < 150 && !Break){//the auton line is around 144 inches, 
+            if(ForwardITest(Adder,kI)){ //using I, becuse the P and D are already known when testing for I
+                MaxWorkingDistance = Adder;
+                Adder += 10;
+            }else{
+                Break = true;
+            }
+        }// its generally fine if these break, as at least the MinDistance is. the max is more or less needed for MOGO rush
+        MaxWorkingDistance = Adder - 10;
+        Adder = 5
+        Break = false;
+        while (Adder > 0 && !Break){
+            if (ForwardITest(Adder,kI)){
+                MinWorkingDistance = Adder;
+                Adder = Adder - 0.2;
+            }else {
+                Break = true;
             }
         }
     }
@@ -64,8 +116,8 @@ bool RollBack(float distance){
         lastError = error;
         }
 }
-bool ForwardITest(float distance,double Imul){
-
+bool ForwardPTest(float distance,double P){
+    int amtTimesRan = 0;
     double Output;
     double I;
     double lastError;
@@ -73,22 +125,55 @@ bool ForwardITest(float distance,double Imul){
     bot.RTar = InchesToDegrees(distance) + bot.RDeg;
     bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
 
-    while(bot.error >= Tolerance && !bot.failed){
+    while(bot.error >= Tolerance && !bot.failed && amtTimesRan <= 3){
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
-        I=(I+bot.error) * Imul;
-        Output = (bot.error * kp) + I + ((bot.error - lastError)*0);
-        if (bot.error >= -(Tolerance)){
+        I=(I+bot.error) * 0;
+        Output = (bot.error * P) + I + ((bot.error - lastError)*0);
+        if (bot.error <= -(InchesToDegrees(OverShootAmt)+Tolerance)){//if it passes over the tolerance limit, report that it failed
             bot.failed = true;
+        }else if (bot.error >= InchesToDegrees(OverShootAmt)){
+            RollBack(distance);
+            amtTimesRan++;
         }
         lastError = error;
     }
+
     if (bot.failed){
-        return false; //failed, make the tester roll back twice then go finer
+        return false; //failed, make the tester roll back then go finer
+    }else{
+        return true;//passed, up the amount
+    }
+
+}
+bool ForwardDTest(float distance,double D){
+    int amtTimesRan = 0;
+    double Output;
+    double I;
+    double lastError;
+    bot.LTar = InchesToDegrees(distance) + bot.LDeg;
+    bot.RTar = InchesToDegrees(distance) + bot.RDeg;
+    bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
+
+    while(bot.error >= Tolerance && !bot.failed && amtTimesRan <= 3){
+        bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
+        I=(I+bot.error) * 0;
+        Output = (bot.error * P) + I + ((bot.error - lastError)*D);
+        if (bot.error <= -Tolerance/2){//the tolerance if +15 - -15 motor deg, hence the /2
+            bot.failed = true;
+        }else if (bot.error < Tolerance/2){
+            amtTimesRan++;
+        }
+        lastError = error;
+    }
+
+    if (bot.failed){
+        return false; //failed, make the tester roll back then go finer
     }else{
         return true;//passed, up the amount
     }
 }
-bool ForwardPTest(float distance,double P){
+
+bool ForwardITest(float distance,double i){//typically in alot of my code, a lowercase standalone variable is the "un proccesed" version of the variable
 
     double Output;
     double I;
@@ -99,8 +184,8 @@ bool ForwardPTest(float distance,double P){
 
     while(bot.error >= Tolerance && !bot.failed){
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
-        I=(I+bot.error) * 0;
-        Output = (bot.error * P) + I + ((bot.error - lastError)*0);
+        I=(I+bot.error) * i;
+        Output = (bot.error * kp) + I + ((bot.error - lastError)*kD);
         if (bot.error >= -(Tolerance)){
             bot.failed = true;
         }
@@ -111,5 +196,4 @@ bool ForwardPTest(float distance,double P){
     }else{
         return true;//passed, up the amount
     }
-
 }

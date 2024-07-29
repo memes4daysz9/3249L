@@ -45,3 +45,13 @@ class Conveyor{
     void Intake();//Conveyor.Intake();
 };
 Conveyor conveyor;
+class Logger{
+    public:
+    bool IsSDconnected;
+    bool isInFile;
+    string FileName;
+    Logger();
+    void writeToFile(string Text);
+    void CreateFile(string FileName);
+}
+Logger logger;
