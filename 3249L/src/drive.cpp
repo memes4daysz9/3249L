@@ -17,7 +17,11 @@ float cPower;
  	BackRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));*/
 void opcontrol(){
     pros::Controller MainController(pros::E_CONTROLLER_MASTER);
+    	pros::adi::DigitalIn AutoTuneButton (1);
 
+    if (AutoTuneButton.get_value()){
+        AutoTune();
+    }
     const float curve = 0.3;
     float cPower;
     float cTurn;

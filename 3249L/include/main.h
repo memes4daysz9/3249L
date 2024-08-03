@@ -37,6 +37,7 @@
 #include "api.h"
 #include "classes.h"
 #include "globals.h"
+#include "pal/log.h"
 
 /**
  * You should add more #includes here
