@@ -1,11 +1,12 @@
 #include "main.h"
-
+#pragma once
 class Bot{
     public:
     int RDeg;
     int LDeg;
     float LTar;
     float RTar;//double 4 byte = 8 byte
+    double Dis;
     double LDis;
     double RDis;
     double error;
@@ -35,7 +36,7 @@ class Lambda{
     void Activate();//Lambda.Activate();
     void Deactivate();//Lambda.DeActivate();
 };
-Lambda lambda;
+extern Lambda lambda;
 class Conveyor{
     public:
     bool Climbing;
@@ -44,14 +45,14 @@ class Conveyor{
     void Climb();//Conveyor.Climb();
     void Intake();//Conveyor.Intake();
 };
-Conveyor conveyor;
+extern Conveyor conveyor;
 class Logger{
     public:
     bool IsSDconnected;
     bool isInFile;
-    string FileName;
+    std::string FileName;
     Logger();
-    void writeToFile(string Text);
-    void CreateFile(string FileName);
-}
-Logger logger;
+    void writeToFile(std::string Text);
+    void CreateFile(std::string FileName);
+};
+extern Logger logger;

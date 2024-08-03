@@ -16,7 +16,9 @@ float cPower;
   	BackLeftMotor.move(forward,(100*(((1-curve)*left)/100+(curve*pow(left/100,7)))));
  	BackRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));*/
 void opcontrol(){
-    const curve = 0.3;
+    pros::Controller MainController(pros::E_CONTROLLER_MASTER);
+
+    const float curve = 0.3;
     float cPower;
     float cTurn;
     float cSide;
@@ -38,5 +40,5 @@ void opcontrol(){
     fright = right + cSide;
     bleft = left*(-1) - cSide;
     bright = right*(-1);
-    motor.spin();// work in proggress
+    //motor spin
 }

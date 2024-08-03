@@ -1,23 +1,6 @@
 #include "main.h"
 
-Bot::Bot(){
-    int RDeg;
-    int LDeg;
-    double LTar;
-    double RTar;
-    double Dis;
-    double LDis;
-    double RDis;
-    double error;
-    double Heading;
-    bool PurePursuit;
-}
-double DegToRad(double x) {
-    return (x * (M_PI/180));
-}
-double RadToDeg(double x) {
-    return (x* (180/M_PI));
-}
+
 
 void Odometry(){
     double DeltaLeft;
