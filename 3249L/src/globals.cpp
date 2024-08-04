@@ -20,4 +20,4 @@ extern double RadToDeg(double x) {
     return (x* (180/M_PI));
 }
 
-
+extern int sgn(double x){if (x > 0){return 1;}else if(x < 0){return -1;}else{return 0;}}

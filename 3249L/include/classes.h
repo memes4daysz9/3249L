@@ -4,11 +4,13 @@ class Bot{
     public:
     int RDeg;
     int LDeg;
+    int XDeg;
     float LTar;
     float RTar;//double 4 byte = 8 byte
     double Dis;
     double LDis;
     double RDis;
+    double XDis;
     double error;
     bool PurePursuit;
     double Heading;

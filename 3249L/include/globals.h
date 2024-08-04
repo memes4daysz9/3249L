@@ -4,6 +4,7 @@ extern double InchesToDegrees(float distance);
 extern double RotationToDegrees(double degrees);
 extern double DegToRad(double x);
 extern double RadToDeg(double x);
+extern int sgn(double x);
 extern void LogPIDValues();
 extern void LogALLvalues();
 extern void AutoTune();

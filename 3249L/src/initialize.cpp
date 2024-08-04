@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/motors.hpp"
 
 void on_center_button() {
@@ -19,7 +20,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
-	
+	pros::adi::Encoder Xaxis ('B','C',false);
 	pros::Motor FLX (1);
 	pros::Motor FRX (2);
 	pros::Motor BLX (3);
@@ -27,7 +28,7 @@ void initialize() {
 
 	pros::Motor Left(5);//odom
 	pros::Motor Right(6);
-	
+
     void lv_init();
 
 }

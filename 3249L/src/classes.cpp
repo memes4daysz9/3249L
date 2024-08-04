@@ -5,11 +5,13 @@ Bot bot;
 Bot::Bot(){
     int RDeg;
     int LDeg;
+    int XDeg;
     double LTar;
     double RTar;
     double Dis;
     double LDis;
     double RDis;
+    double XDis;
     double error;
     double Heading;
     bool PurePursuit;
