@@ -1,8 +1,8 @@
 #include "main.h"
-extern const double diameter = 3.25;
+extern constexpr double diameter = 3.25;
 extern constexpr double radius = diameter/2;
-extern const double TrackLength = 8;
-extern const double Tolerance = 36;
+extern constexpr double TrackLength = 8;
+extern constexpr double Tolerance = 36;
 extern double kP = 0;//might change this after AutoPID does its thing
 extern double kI = 0;
 extern double kD = 0;
