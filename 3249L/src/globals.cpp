@@ -1,6 +1,6 @@
 #include "main.h"
 extern const double diameter = 3.25;
-extern const double radius = diameter/2;
+extern constexpr double radius = diameter/2;
 extern const double TrackLength = 8;
 extern const double Tolerance = 36;
 extern double kP = 0;//might change this after AutoPID does its thing
