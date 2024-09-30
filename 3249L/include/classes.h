@@ -72,3 +72,32 @@ class Logger{
     void CreateFile(std::string FileName);
 };
 extern Logger logger;
+
+class ProgressBar{
+    public:
+    float Data;
+    float min;
+    float max;
+    int X[1];
+    int Y[1];
+    int ID;
+    bool initBar(ProgressBar CurBar);
+    void GetBarID(ProgressBar BarToGet);
+    bool UpdateBar(int BarID);
+    bool UpdateAllBars();
+};
+extern ProgressBar bar;
+
+class Needle{// little spedometer
+    public:
+    float Data;
+    float min;
+    float max;
+    float Radius;
+    int16_t X[1];
+    int16_t Y[1];
+    int ID;
+    void InitDial(Needle NtoAdd);
+    void UpdateDial(int BarID);
+};
+extern Needle needle;

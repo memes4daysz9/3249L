@@ -100,7 +100,7 @@ bool ForwardITest(float distance,double i){//typically in alot of my code, a low
         return true;//passed, up the amount
     }
 }
-void AutoTune(){//start with P then move to D then I
+extern void AutoTune(){//start with P then move to D then I
     double minP = 1;
     bool GotPValue = false;
     double TestingP;
@@ -161,11 +161,11 @@ void AutoTune(){//start with P then move to D then I
         if(ForwardITest(10,TestingI)&&ForwardITest(10,TestingI)){//twice, to ensure reliability as the I multiplier can be hectic
             TestingI = LastI + Adder;
         }else{
-            if(Adder < 0.1){
+            if(Adder < 0.01){
                 GotIValue = true;//exiting loop
                 
             }else{
-                Adder = Adder/10; //0.1, 0.01
+                Adder = Adder/10; //0.1, 0.01,0.001
                 TestingI = -(Adder);
             }
         }

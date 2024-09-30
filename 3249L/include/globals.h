@@ -15,3 +15,5 @@ extern const double radius;
 extern double kP;
 extern double kI;
 extern double kD;
+extern ProgressBar Bars[13];
+extern Needle Needles[13];

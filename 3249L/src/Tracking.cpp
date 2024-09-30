@@ -4,10 +4,12 @@
 
 	pros::Motor Left(5);//odom
 	pros::Motor Right(6);
+
 const double XwheelDia  = 3.25;//since its a tracking wheel, it may have a different diameter than the drivetrain
 const double SL = 1;// "the left-right distance from the tracking center to the left tracking wheel"
 const double SR = 1;// "the left-right distance from the tracking center to the right tracking wheel"
 const double SS = 1;// "the forward-backward distance from the tracking center to the back tracking wheel"
+
 void Odometry(){
 
     pros::adi::Encoder Xaxis ('B','C',false);
@@ -52,7 +54,7 @@ void Odometry(){
             }//line 193 https://github.com/Aidan360/EyesofVector/blob/main/src/purePursuit.cpp
         }else {
             LocalOffset[0] = (2*sin(bot.Heading/2)*(bot.XDis/DeltaHeading)+SS);
-            
+
             if (bot.RDis > 1){
                 LocalOffset[1] = (2*sin(bot.Heading/2)*(bot.RDis/DeltaHeading)+SR);
             }else {

@@ -6,9 +6,12 @@ int Customclock(){
   Timer++;
   return Timer;
 }
-
+Needle needle;
 void ShowScreen(){
   uint8_t WhichStats; //Context based stats
+
+  pros::Motor Left(5);//odom
+	pros::Motor Right(6);
     /*
   0 = basic
   1 = Ben Mode (semi Nerd)
@@ -18,8 +21,16 @@ void ShowScreen(){
   const static uint8_t FrameRate = 59; //59 as i dunno how to enable V-Sync, and these brains have bad tearing
   int TimePast = 0;
   int InitialTime = 0;
-
-
+  Needle Speed;
+  Speed.ID = 0;
+  Speed.max = 600;
+  Speed.Radius = 10;
+  int16_t x = 10;
+  int16_t y = 10;
+  Speed.X[0] = x;// alot of these are place holders
+  Speed.Y[0] = y;
+  Speed.Data = 0;
+  needle.InitDial(Speed);
 
     //pros::screen::print(pros::TEXT_MEDIUM, 3, "Seconds Passed: %3d", i++);
       while (pros::competition::is_autonomous()) {
@@ -31,14 +42,17 @@ void ShowScreen(){
 
         pros::delay((1000/FrameRate)-TimePast);
 
-        pros::screen::set_pen(0x082c54);//hear me out
+        pros::screen::set_pen(0x001e56);//hear me out
         pros::screen::fill_rect(1,1,480,240);
         pros::screen::set_pen(0xffffff);
 
         if(WhichStats == 0){ // the everyone can read mode
+        Needles[Speed.ID].Data = (Left.get_actual_velocity() + Right.get_actual_velocity()) / 2;//updates the data for the area
         pros::screen::print(pros::E_TEXT_SMALL,2,"X:%3d, Y:%3d",bot.x,bot.y);
         pros::screen::print(pros::E_TEXT_SMALL,4,"Heading:%3d",bot.Heading);
         pros::screen::print(pros::E_TEXT_SMALL,6,"FPS:%3d",1000/((1000/FrameRate)-TimePast));
+        needle.UpdateDial(Speed.ID);
+
 
         }else if (WhichStats == 1){//nerdy stuff
           pros::screen::print(pros::E_TEXT_SMALL,1,"X:%3d, Y:%3d",bot.x,bot.y);
