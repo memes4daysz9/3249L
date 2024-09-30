@@ -18,17 +18,15 @@ void initialize() {
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 
-	pros::lcd::register_btn1_cb(on_center_button);/*
-	pros::Motor FLXMotor_initializer (1,pros::E_MOTOR_GEARSET_18,false,pros::E_MOTOR_ENCODER_DEGREES);
-	pros::Motor FRXMotor_initializer (2,pros::E_MOTOR_GEARSET_18,false,pros::E_MOTOR_ENCODER_DEGREES);
-	pros::Motor BLXMotor_initializer (3,pros::E_MOTOR_GEARSET_18,false,pros::E_MOTOR_ENCODER_DEGREES);//idk why VScode isnt happy
-	pros::Motor BRXMotor_initializer (4,pros::E_MOTOR_GEARSET_18,false,pros::E_MOTOR_ENCODER_DEGREES);
+	pros::lcd::register_btn1_cb(on_center_button);
+	pros::Motor FLXMotor_initializer (1,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
+	pros::Motor FRXMotor_initializer (2,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
+	pros::Motor BLXMotor_initializer (3,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);//idk why VScode isnt happy
+	pros::Motor BRXMotor_initializer (4,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
   
-	pros::Motor LeftMotor_initializer(5,pros::E_MOTOR_GEARSET_18,false,pros::E_MOTOR_ENCODER_DEGREES);//odom
-	pros::Motor RightMotor_initializer(6,pros::E_MOTOR_GEARSET_18,true,pros::E_MOTOR_ENCODER_DEGREES);
+	pros::Motor LeftMotor_initializer(5,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);//odom
+	pros::Motor RightMotor_initializer(-6,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
 
-*/
-pros::Motor motor (1, pros::v5::MotorGears::green, pros::v5::MotorUnits::degrees);
 	pros::adi::Encoder Xaxis ('B','C',false);
 	pros::Motor FLXMotor (1);
 	pros::Motor FRXMotor (2);

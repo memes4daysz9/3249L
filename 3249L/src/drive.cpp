@@ -44,5 +44,6 @@ void opcontrol(){
     fright = right + cSide;
     bleft = left*(-1) - cSide;
     bright = right*(-1);
+    
     //motor spin
 }

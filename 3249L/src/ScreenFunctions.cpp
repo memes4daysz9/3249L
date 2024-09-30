@@ -9,15 +9,23 @@ int Customclock(){
 Needle needle;
 void ShowScreen(){
   uint8_t WhichStats; //Context based stats
-
-  pros::Motor Left(5);//odom
-	pros::Motor Right(6);
-    /*
-  0 = basic
+      /*
+  0 = basic, whith cool visualizations
   1 = Ben Mode (semi Nerd)
   2 = PID Debuging/Very Nerd
   3 = Pure Pursuit Debugging / all options
   */
+
+ uint8_t WhichModes;//Context based Screen
+  /*
+  0 = Initializing
+  1 = Auton
+  2 = Driver
+  3 = Post Game
+  */
+  pros::Motor Left(5);//odom
+	pros::Motor Right(6);
+
   const static uint8_t FrameRate = 59; //59 as i dunno how to enable V-Sync, and these brains have bad tearing
   int TimePast = 0;
   int InitialTime = 0;
@@ -31,16 +39,15 @@ void ShowScreen(){
   Speed.Y[0] = y;
   Speed.Data = 0;
   needle.InitDial(Speed);
+    while(true){
+    InitialTime = clock();
+    pros::screen::set_pen(0x0);//set pen color
+    pros::screen::fill_rect(1,1,480,240);
+    pros::screen::set_pen(0x00FFFFFF);//set pen color
 
+    pros::delay((1000/FrameRate)-TimePast);
     //pros::screen::print(pros::TEXT_MEDIUM, 3, "Seconds Passed: %3d", i++);
-      while (pros::competition::is_autonomous()) {
-        InitialTime = clock();
-
-            pros::screen::set_pen(0x0);//set pen color
-            pros::screen::fill_rect(1,1,480,240); // this is after auton is selected... fills entire screen
-            pros::screen::set_pen(0x00FFFFFF);//set pen color
-
-        pros::delay((1000/FrameRate)-TimePast);
+      if (WhichModes = 1) {
 
         pros::screen::set_pen(0x001e56);//hear me out
         pros::screen::fill_rect(1,1,480,240);
@@ -106,7 +113,13 @@ void ShowScreen(){
           pros::screen::set_pen(0xffffff);
         }
 
-     TimePast = clock() - InitialTime;// tries to run V-Sync  
-  }
+     
+  }else if (WhichModes = 2){//driver
+    //Temp Dial
+    //Speed Dial
+    //Intake Mode
 
+  }
+  TimePast = clock() - InitialTime;// tries to run V-Sync  
+  }
 }
