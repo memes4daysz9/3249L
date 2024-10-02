@@ -33,7 +33,7 @@ void initialize() {
 	pros::Motor BLXMotor (3);
 	pros::Motor BRXMotor (4);
 
-	pros::Motor LeftMotor(5);//odom
+	pros::Motor LeftMotor(5);
 	pros::Motor RightMotor(6);
 
     void lv_init();

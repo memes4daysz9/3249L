@@ -39,6 +39,15 @@ void ShowScreen(){
   Speed.Y[0] = y;
   Speed.Data = 0;
   needle.InitDial(Speed);
+  //Tempurture dial
+  Needle Temp;
+  Temp.ID = 1;
+  Temp.max = 54;//thats when the temp is about to start throttling the motor
+  Temp.Radius = 10;
+  Temp.Data = 0;
+  Temp.X[0] = x;// alot of these are place holders
+  Temp.Y[0] = y;
+  needle.InitDial(Temp);
     while(true){
     InitialTime = clock();
     pros::screen::set_pen(0x0);//set pen color
@@ -55,11 +64,12 @@ void ShowScreen(){
 
         if(WhichStats == 0){ // the everyone can read mode
         Needles[Speed.ID].Data = (Left.get_actual_velocity() + Right.get_actual_velocity()) / 2;//updates the data for the area
+        
         pros::screen::print(pros::E_TEXT_SMALL,2,"X:%3d, Y:%3d",bot.x,bot.y);
         pros::screen::print(pros::E_TEXT_SMALL,4,"Heading:%3d",bot.Heading);
         pros::screen::print(pros::E_TEXT_SMALL,6,"FPS:%3d",1000/((1000/FrameRate)-TimePast));
         needle.UpdateDial(Speed.ID);
-
+        needle.UpdateDial(Temp.ID);
 
         }else if (WhichStats == 1){//nerdy stuff
           pros::screen::print(pros::E_TEXT_SMALL,1,"X:%3d, Y:%3d",bot.x,bot.y);
