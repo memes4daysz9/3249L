@@ -6,6 +6,7 @@
 	pros::Motor Right(6);
 
 const double XwheelDia  = 3.25;//since its a tracking wheel, it may have a different diameter than the drivetrain
+
 const double SL = 1;// "the left-right distance from the tracking center to the left tracking wheel"
 const double SR = 1;// "the left-right distance from the tracking center to the right tracking wheel"
 const double SS = 1;// "the forward-backward distance from the tracking center to the back tracking wheel"

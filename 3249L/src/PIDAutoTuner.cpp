@@ -4,7 +4,7 @@ const int ATtolerance = 6;//motor degrees, may change if friction is much differ
 const int OverShootAmt = 1;
 int MaxWorkingDistance;
 int MinWorkingDistance;
-bool RollBack(float distance){
+bool RollBack(float distance){//just using that P
     double Output;
     double I;
     double lastError;
@@ -16,6 +16,7 @@ bool RollBack(float distance){
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
         I=(I+bot.error) * 0;
         Output = (bot.error * kP) + I + ((bot.error - lastError)*0);
+        MoveAllMotors(Output);
         lastError = bot.error;
         }
 }
@@ -32,6 +33,7 @@ bool ForwardPTest(float distance,double P){
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
         I=(I+bot.error) * 0;
         Output = (bot.error * P) + I + ((bot.error - lastError)*0);
+        MoveAllMotors(Output);
         if (bot.error <= -(InchesToDegrees(OverShootAmt)+ATtolerance)){//if it passes over the ATtolerance limit, report that it failed
             bot.failed = true;
         }else if (bot.error >= InchesToDegrees(OverShootAmt)){
@@ -61,6 +63,7 @@ bool ForwardDTest(float distance,double D){
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
         I=(I+bot.error) * 0;
         Output = (bot.error * kP) + I + ((bot.error - lastError)*D);
+        MoveAllMotors(Output);
         if (bot.error <= -ATtolerance/2){//the ATtolerance if +15 - -15 motor deg, hence the /2
             bot.failed = true;
         }else if (bot.error < ATtolerance/2){
@@ -89,6 +92,7 @@ bool ForwardITest(float distance,double i){//typically in alot of my code, a low
         bot.error = ((bot.LTar - bot.LDeg) + (bot.RTar - bot.LDeg))/2;
         I=(I+bot.error) * i;
         Output = (bot.error * kP) + I + ((bot.error - lastError)*kD);
+        MoveAllMotors(Output);
         if (bot.error >= -(ATtolerance)){
             bot.failed = true;
         }
@@ -111,6 +115,7 @@ extern void AutoTune(){//start with P then move to D then I
         //get the lowest value for P possible
 
         //motor.move_voltage(minP*5);//5 for the lowest number tested, as the error gets higher, so will the output
+        MoveAllMotors(minP);
         minP += 1;
     }
     TestingP = minP;

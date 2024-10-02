@@ -6,6 +6,7 @@ extern double DegToRad(double x);
 extern double RadToDeg(double x);
 extern int sgn(double x);
 extern void MoveAllMotors(float Voltage);
+extern void MoveXMotorsF(float Voltage);
 extern void LogPIDValues();
 extern void LogALLvalues();
 extern void AutoTune();
