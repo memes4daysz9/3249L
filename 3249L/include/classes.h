@@ -73,7 +73,7 @@ class Logger{
 };
 extern Logger logger;
 
-class ProgressBar{
+/*class ProgressBar{
     public:
     float Data;
     float min;
@@ -101,3 +101,20 @@ class Needle{// little spedometer
     void UpdateDial(int BarID);
 };
 extern Needle needle;
+*/// i giving up ngl
+/*class Vector2{
+    public:
+    float x;
+    float y;
+    Init();
+};
+extern Vector2 vector2;
+
+class Vector3{
+    public:
+    float x;
+    float y;
+    float z;//typically will be heading
+    Init();
+};
+extern Vector3 vector3;*/

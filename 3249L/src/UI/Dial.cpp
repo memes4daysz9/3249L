@@ -1,4 +1,4 @@
-#include "main.h"
+/*#include "main.h"
 
 void Needle::InitDial(Needle NtoAdd){
     Needles[NtoAdd.ID] = NtoAdd;
@@ -18,3 +18,4 @@ void Needle::UpdateDial(int BarID){
     Y = Needles[BarID].Y;
     pros::screen::draw_line(*X, *Y, L[0], L[1]);
 }
+*/

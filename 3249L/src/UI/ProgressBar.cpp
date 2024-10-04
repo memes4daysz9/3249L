@@ -1,4 +1,4 @@
-#include "main.h"
+/*#include "main.h"
 
 bool ProgressBar::initBar(ProgressBar CurBar){
     UpdateBar(CurBar.ID);
@@ -66,3 +66,4 @@ bool UpdateAllBars(){
 
        }
 }
+*/

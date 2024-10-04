@@ -13,6 +13,8 @@ void on_center_button() {
 }
 void initialize() {
 
+	pros::Task Odom(Odometry);
+	pros::Task ScreenInfo(ShowScreen);
 	log_init();
 	LOG_ALWAYS("In Initialize");
 	pros::lcd::initialize();

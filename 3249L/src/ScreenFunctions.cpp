@@ -6,7 +6,7 @@ int Customclock(){
   Timer++;
   return Timer;
 }
-Needle needle;
+//Needle needle;
 void ShowScreen(){
   uint8_t WhichStats; //Context based stats
       /*
@@ -29,7 +29,7 @@ void ShowScreen(){
   const static uint8_t FrameRate = 59; //59 as i dunno how to enable V-Sync, and these brains have bad tearing
   int TimePast = 0;
   int InitialTime = 0;
-  Needle Speed;
+  /*Needle Speed;
   Speed.ID = 0;
   Speed.max = 600;
   Speed.Radius = 10;
@@ -48,6 +48,7 @@ void ShowScreen(){
   Temp.X[0] = x;// alot of these are place holders
   Temp.Y[0] = y;
   needle.InitDial(Temp);
+  */
     while(true){
     InitialTime = clock();
     pros::screen::set_pen(0x0);//set pen color
@@ -63,13 +64,13 @@ void ShowScreen(){
         pros::screen::set_pen(0xffffff);
 
         if(WhichStats == 0){ // the everyone can read mode
-        Needles[Speed.ID].Data = (Left.get_actual_velocity() + Right.get_actual_velocity()) / 2;//updates the data for the area
+        //Needles[Speed.ID].Data = (Left.get_actual_velocity() + Right.get_actual_velocity()) / 2;//updates the data for the area
         
         pros::screen::print(pros::E_TEXT_SMALL,2,"X:%3d, Y:%3d",bot.x,bot.y);
         pros::screen::print(pros::E_TEXT_SMALL,4,"Heading:%3d",bot.Heading);
         pros::screen::print(pros::E_TEXT_SMALL,6,"FPS:%3d",1000/((1000/FrameRate)-TimePast));
-        needle.UpdateDial(Speed.ID);
-        needle.UpdateDial(Temp.ID);
+        //needle.UpdateDial(Speed.ID);
+        //needle.UpdateDial(Temp.ID);
 
         }else if (WhichStats == 1){//nerdy stuff
           pros::screen::print(pros::E_TEXT_SMALL,1,"X:%3d, Y:%3d",bot.x,bot.y);

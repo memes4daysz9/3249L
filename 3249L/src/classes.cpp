@@ -35,3 +35,19 @@ Logger::Logger(){
     bool isInFile;
     std::string FileName;
 }
+/*Vector2 vector2;
+Vector2::Init(){
+    public:
+    float x;
+    float y;
+};
+extern Vector2 vector2;
+
+Vector3::Init(){
+    public:
+    float x;
+    float y;
+    float z;//typically will be heading
+};
+extern Vector3 vector3;
+*/
