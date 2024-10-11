@@ -1,5 +1,6 @@
 #include "main.h"
 #pragma once
+
 extern double InchesToDegrees(float distance);
 extern double RotationToDegrees(double degrees);
 extern double DegToRad(double x);

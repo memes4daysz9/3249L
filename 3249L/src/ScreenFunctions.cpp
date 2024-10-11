@@ -6,9 +6,18 @@ int Customclock(){
   Timer++;
   return Timer;
 }
+void on_center_button() {
+	static bool pressed = false;
+	pressed = !pressed;
+	if (pressed) {
+		pros::lcd::set_text(2, "I was pressed!");
+	} else {
+		pros::lcd::clear_line(2);
+	}
+}
 //Needle needle;
 void ShowScreen(){
-  uint8_t WhichStats; //Context based stats
+  uint8_t WhichStats = 3; //Context based stats
       /*
   0 = basic, whith cool visualizations
   1 = Ben Mode (semi Nerd)
@@ -26,7 +35,7 @@ void ShowScreen(){
   pros::Motor Left(5);//odom
 	pros::Motor Right(6);
 
-  const static uint8_t FrameRate = 59; //59 as i dunno how to enable V-Sync, and these brains have bad tearing
+  const static uint_fast8_t FrameRate = 10;
   int TimePast = 0;
   int InitialTime = 0;
   /*Needle Speed;
@@ -49,19 +58,23 @@ void ShowScreen(){
   Temp.Y[0] = y;
   needle.InitDial(Temp);
   */
+    pros::screen::set_pen(0x001e56);//hear me out
+        pros::screen::fill_rect(1,1,480,240);
+        pros::screen::set_pen(0xffffff);
     while(true){
     InitialTime = clock();
-    pros::screen::set_pen(0x0);//set pen color
+    pros::lcd::register_btn1_cb(on_center_button);
+    /*pros::screen::set_pen(0x0);//set pen color
     pros::screen::fill_rect(1,1,480,240);
     pros::screen::set_pen(0x00FFFFFF);//set pen color
+    */
 
     pros::delay((1000/FrameRate)-TimePast);
+    //pros::delay(500);
     //pros::screen::print(pros::TEXT_MEDIUM, 3, "Seconds Passed: %3d", i++);
       if (WhichModes = 1) {
 
-        pros::screen::set_pen(0x001e56);//hear me out
-        pros::screen::fill_rect(1,1,480,240);
-        pros::screen::set_pen(0xffffff);
+
 
         if(WhichStats == 0){ // the everyone can read mode
         //Needles[Speed.ID].Data = (Left.get_actual_velocity() + Right.get_actual_velocity()) / 2;//updates the data for the area
@@ -69,6 +82,7 @@ void ShowScreen(){
         pros::screen::print(pros::E_TEXT_SMALL,2,"X:%3d, Y:%3d",bot.x,bot.y);
         pros::screen::print(pros::E_TEXT_SMALL,4,"Heading:%3d",bot.Heading);
         pros::screen::print(pros::E_TEXT_SMALL,6,"FPS:%3d",1000/((1000/FrameRate)-TimePast));
+        pros::screen::print(pros::E_TEXT_SMALL,8,"Frame Time:%3d",(1000/FrameRate)-TimePast);
         //needle.UpdateDial(Speed.ID);
         //needle.UpdateDial(Temp.ID);
 
@@ -78,7 +92,7 @@ void ShowScreen(){
           pros::screen::print(pros::E_TEXT_SMALL,3,"Heading:%3d",bot.Heading);
           pros::screen::print(pros::E_TEXT_SMALL,4,"Error:%3d",bot.error);
           pros::screen::print(pros::E_TEXT_SMALL,5,"LeftDis:%3d, RightDis:%3d",bot.LDis,bot.RDis);
-          pros::screen::print(pros::E_TEXT_SMALL,6,"Time Between Clocks:%3d",TimePast);
+          pros::screen::print(pros::E_TEXT_SMALL,6,"Time Between Clocks:%3d",TimePast*100);
           pros::screen::print(pros::E_TEXT_SMALL,7,"FPS:%3d",1000/((1000/FrameRate)-TimePast));
           
 

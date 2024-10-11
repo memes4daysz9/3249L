@@ -31,10 +31,11 @@ void opcontrol(){
     pros::Controller MainController(pros::E_CONTROLLER_MASTER);
     	pros::adi::DigitalIn AutoTuneButton (1);
 
-    if (AutoTuneButton.get_value()){
+    if (AutoTuneButton.get_value() >= 1){
         AutoTune();
+        pros::screen::print(pros::E_TEXT_SMALL,11,"Button:%3d",AutoTuneButton.get_value());
     }
-
+    while(true){
     const float curve = 0.85;
     float cPower;
     float cTurn;
@@ -69,6 +70,6 @@ void opcontrol(){
     LeftMotor.move_voltage(120 * right);
     RightMotor.move_voltage(120 * right);//so jank
 
-    
+    }
     //motor spin <- ->
 }
