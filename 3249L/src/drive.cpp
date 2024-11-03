@@ -6,36 +6,73 @@ float cPower;
  float right;
  float curve;
 
-	cPower = MainController.get_analog(ANALOG_LEFT_Y);
-	cTurn = MainController.get_analog(ANALOG_RIGHT_X);
-	left = cPower + cTurn;
-	right = cPower - cTurn;
+    cPower = MainController.get_analog(ANALOG_LEFT_Y);
+    cTurn = MainController.get_analog(ANALOG_RIGHT_X);
+    left = cPower + cTurn;
+    right = cPower - cTurn;
 
- 	FrontLeftMotor.move(forward,(100*(((1-curve)*left)/100+(curve*pow(left/100,7)))));
- 	FrontRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));
-  	BackLeftMotor.move(forward,(100*(((1-curve)*left)/100+(curve*pow(left/100,7)))));
- 	BackRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));*/
+    FrontLeftMotor.move(forward,(100*(((1-curve)*left)/100+(curve*pow(left/100,7)))));
+    FrontRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));
+    BackLeftMotor.move(forward,(100*(((1-curve)*left)/100+(curve*pow(left/100,7)))));
+    BackRightMotor.move(forward,(100*(((1-curve)*right)/100+(curve*pow(right/100,7)))));*/
+void Cheese()
+{
+    pros::Motor FLXMotor(-1);
+    pros::Motor FRXMotor(2);
+    pros::Motor BLXMotor(3); // testing
+    pros::Motor BRXMotor(-7);
 
-void opcontrol(){
-    bool TDriveOverTemp;// this is for when the 2 motor drive gets over temp;
-    bool XDriveOverTemp;// this is for when the x drive over temps
+    FLXMotor.move_voltage(12000);
+    FRXMotor.move_voltage(-12000);
+    BLXMotor.move_voltage(12000); // WEEEEEEEEEEE :3
+    BRXMotor.move_voltage(-12000);
+    pros::delay(10);
+    FLXMotor.move_voltage(0);
+    FRXMotor.move_voltage(0);
+    BLXMotor.move_voltage(0); // un WEE :(
+    BRXMotor.move_voltage(0);
+}
+void HapyJompYIPPEE(){
+    pros::Motor FLXMotor(-1);
+    pros::Motor FRXMotor(2);
+    pros::Motor BLXMotor(3); // testing
+    pros::Motor BRXMotor(-7);
 
-    pros::Motor FLXMotor (1);
-	pros::Motor FRXMotor (2);
-	pros::Motor BLXMotor (3);
-	pros::Motor BRXMotor (4);
+    FLXMotor.move_voltage(-12000);
+    FRXMotor.move_voltage(-12000);
+    BLXMotor.move_voltage(-12000); // Bong :3
+    BRXMotor.move_voltage(-12000);
+    pros::delay(10);
+    FLXMotor.move_voltage(0);
+    FRXMotor.move_voltage(0);
+    BLXMotor.move_voltage(0); // un WEE :(
+    BRXMotor.move_voltage(0);
+}
+void opcontrol()
+{
+    const float Limiter = 1; // helps with battery while testing
+    bool TDriveOverTemp;     // this is for when the 2 motor drive gets over temp;
+    bool XDriveOverTemp;     // this is for when the x drive over temps
+    int TempState;           // Average, then Ports
+    bool loop;               // stops values from rolling over
+    //
 
-	pros::Motor LeftMotor(5);
-	pros::Motor RightMotor(6);
+    pros::Motor FLXMotor(-1);
+    pros::Motor FRXMotor(2);
+    pros::Motor BLXMotor(3); // testing
+    pros::Motor BRXMotor(-7);
+
+    pros::Motor LeftMotor(5);
+    pros::Motor RightMotor(6);
 
     pros::Controller MainController(pros::E_CONTROLLER_MASTER);
-    	pros::adi::DigitalIn AutoTuneButton (1);
+    pros::adi::DigitalIn AutoTuneButton(1);
 
-    if (AutoTuneButton.get_value() >= 1){
+    if (AutoTuneButton.get_value() >= 1)
+    {
         AutoTune();
-        pros::screen::print(pros::E_TEXT_SMALL,11,"Button:%3d",AutoTuneButton.get_value());
+        pros::screen::print(pros::E_TEXT_SMALL, 11, "Button:%3d", AutoTuneButton.get_value());
     }
-    while(true){
     const float curve = 0.85;
     float cPower;
     float cTurn;
@@ -47,29 +84,46 @@ void opcontrol(){
     float bleft;
     float bright;
 
-	cPower = MainController.get_analog(ANALOG_LEFT_Y);
-	cTurn = MainController.get_analog(ANALOG_RIGHT_X);
-    cSide = MainController.get_analog(ANALOG_LEFT_X);
-    
-	left = cPower + cTurn;
-	right = cPower - cTurn;
+    while (true)
+    {
 
-    fleft = left - cSide;
-    fright = right + cSide;
-    bleft = left*(-1) - cSide;
-    bright = right*(-1);
+        cPower = MainController.get_analog(ANALOG_LEFT_Y) * Limiter;
+        cTurn = MainController.get_analog(ANALOG_RIGHT_X) * Limiter;
+        cSide = MainController.get_analog(ANALOG_LEFT_X) * Limiter;
 
-    FLXMotor.move_voltage(120 * (100*(((1-curve)*fleft)/100+(curve*pow(fleft/100,7)))));
-    FRXMotor.move_voltage(120 * (100*(((1-curve)*fright)/100+(curve*pow(fright/100,7)))));
-    BLXMotor.move_voltage(120 * (100*(((1-curve)*bleft)/100+(curve*pow(bleft/100,7))))); // parentheses galore
-    BRXMotor.move_voltage(120 * (100*(((1-curve)*bright)/100+(curve*pow(bright/100,7)))));
+        left = cPower + cTurn;
+        right = cPower - cTurn;
 
-    LeftMotor.set_current_limit(25 * left);
-    RightMotor.set_current_limit(25 * right);// for helping temps
+        fleft = (left + cSide); // idk why initialized motors dont reverse
+        fright = right - cSide;
+        bleft = left * (-1) + cSide;
+        bright = (right * (-1) - cSide);
 
-    LeftMotor.move_voltage(120 * right);
-    RightMotor.move_voltage(120 * right);//so jank
+        FLXMotor.move_voltage((120 * (100 * (((1 - curve) * fleft) / 100 + (curve * pow(fleft / 100, 7))))) * Limiter);
+        FRXMotor.move_voltage((120 * (100 * (((1 - curve) * fright) / 100 + (curve * pow(fright / 100, 7))))) * Limiter);
+        BLXMotor.move_voltage((120 * (100 * (((1 - curve) * bleft) / 100 + (curve * pow(bleft / 100, 7))))) * Limiter); // parentheses galore
+        BRXMotor.move_voltage((120 * (100 * (((1 - curve) * bright) / 100 + (curve * pow(bright / 100, 7))))) * Limiter);
 
+        LeftMotor.set_current_limit(25 * left);
+        RightMotor.set_current_limit(25 * right); // for helping temps
+
+        LeftMotor.move_voltage(120 * left);   // testing
+        RightMotor.move_voltage(120 * right); // so jank
+
+            bot.MaxTemp = (FLXMotor.get_temperature() + FRXMotor.get_temperature() + BLXMotor.get_temperature() + BRXMotor.get_temperature()) / 4;
+
+        /*if (MainController.get_digital(DIGITAL_B))
+            //lamba off
+
+        }*/
+        if (MainController.get_digital(DIGITAL_UP)){
+            Cheese();
+        }
+        if (MainController.get_digital(DIGITAL_X)){
+            HapyJompYIPPEE();
+        }
+        // motor spin <- ->
     }
-    //motor spin <- ->
+
 }
+

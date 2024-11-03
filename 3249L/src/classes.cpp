@@ -12,9 +12,11 @@ Bot::Bot(){
     double LDis;
     double RDis;
     double XDis;
-    double error;
+    float MaxTemp;
     double Heading;
     bool PurePursuit;
+    double error;
+    
 }
 
 Lambda lambda;

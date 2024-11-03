@@ -4,15 +4,16 @@ const int ATtolerance = 6;//motor degrees, may change if friction is much differ
 const int OverShootAmt = 1;
 int MaxWorkingDistance;
 int MinWorkingDistance;
-	pros::Motor FLXMotor (1);
+
+    
+void MoveAllMotors(float Voltage){//going forward
+	pros::Motor FLXMotor (-1);
 	pros::Motor FRXMotor (2);
 	pros::Motor BLXMotor (3);
-	pros::Motor BRXMotor (4);
+	pros::Motor BRXMotor (-7);
 
 	pros::Motor LeftMotor(5);
 	pros::Motor RightMotor(6);
-    
-void MoveAllMotors(float Voltage){//going forward
     FLXMotor.move_voltage(Voltage);
     FRXMotor.move_voltage(Voltage);
     BLXMotor.move_voltage(Voltage*(-1));
@@ -21,6 +22,13 @@ void MoveAllMotors(float Voltage){//going forward
     RightMotor.move_voltage(Voltage);
 }
 void MoveXMotorsF(float Voltage){//for going forward
+	pros::Motor FLXMotor (-1);
+	pros::Motor FRXMotor (2);
+	pros::Motor BLXMotor (3);
+	pros::Motor BRXMotor (-7);
+
+	pros::Motor LeftMotor(5);
+	pros::Motor RightMotor(6);
     FLXMotor.move_voltage(Voltage);
     FRXMotor.move_voltage(Voltage);
     BLXMotor.move_voltage(Voltage*(-1));

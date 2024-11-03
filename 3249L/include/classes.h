@@ -17,30 +17,12 @@ class Bot{
     double x;
     double y;
     bool failed;
+    float MaxTemp;
     //very much needed`
     Bot();
-    //by default, movements are using dual motor, however there are functions for using all motors for going forward and rotating
-    void XDriveRelativeForward(float Distance);
-    void XDriveRelativeHorizontal(float Distance);// negitive left, positive right
-    void XDriveRelativeRotate(float Deg);//X Drive exclusive
-
-    void XDriveGoTo(float x,float y);
-    void XDriveAbsoluteRotate(float Deg);//X Drive exclusive
-
-    void RelativeForward(float Distance);
-    void RelativeRotate(float Deg);
-    void RelativeForwardHardStop(float Distance);
-    void RelativeCurve(int p1[1],int p2[1]); // dual motor exclusive
-
-    void AbsoluteGoTo(float x,float y);
-    void AbsoluteRotate(float Deg);//dual motor exclusive
-    void AbsoluteHardStop(int x, int y);
-    void AbsoluteCurve(int p1[1] ,int p2[1], int p3[1]);
-
-    void AllMotorRotate(float Deg);//All motors
-    void AllMotorForward(float distance);
-    void AllMotorHardStop(float x,float y);
-
+    bool MoveToPoint();
+    bool MoveRelative();
+    bool AddppPoint();
 
 };
 extern Bot bot;
