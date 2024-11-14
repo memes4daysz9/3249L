@@ -20,9 +20,10 @@ class Bot{
     float MaxTemp;
     //very much needed`
     Bot();
-    bool MoveToPoint();
-    bool MoveRelative();
-    bool AddppPoint();
+    bool MoveToPoint(float x,float y);//deprecatted
+    bool MoveRelative(float x, float y);
+    bool AddppPoint(float x,float y);
+    bool MoveVertical(float dis);
 
 };
 extern Bot bot;

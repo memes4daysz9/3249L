@@ -15,11 +15,9 @@ Update position
 float Sol1[1]; // im hella stupid when i intially wrote this, Solution one is both X Solutoins, so thats fun! And screw you future Ben GLHF
 float Sol2[1];
 const float LookAheadDist = 10; // this is in inches
-const int PathLimit = 3;
-const float Paths[PathLimit][2] = {
-    {0, 0},
-    {1, 1},  // OH MY GOD WE ARE PLANNING AN AIR STRIKE
-    {2, 7}}; // erm actually these are points in a path and not the paths themselves
+extern const int PathLimit = 100;
+extern int CurrLine;
+extern float Paths[PathLimit][2];
 float BestPoint[1];
 bool Finished = false;
 
@@ -153,7 +151,7 @@ pros::Motor RightMotor(6);
     MoveBias[2] = (Bias[1] - Bias[0])/Dividend;//Normalizing them. making them -1 - 1
     MoveBias[3] = (Bias[1] + Bias[0])/Dividend;
     float error = InchesToDegrees((bot.x + bot.y) - (BestPoint[0] + BestPoint[1])); // I would like to mention this calculation is math pulled out me rear, its not at all definite and is 90% wrong
-    while (error > Tolerance)
+    while (abs(error) > Tolerance)
     {
         error = InchesToDegrees((bot.x + bot.y) - (BestPoint[0] + BestPoint[1]));
         FLXMotor.move_voltage(12000 * MoveBias[0]);

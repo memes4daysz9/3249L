@@ -20,5 +20,8 @@ extern const double radius;
 extern double kP;
 extern double kI;
 extern double kD;
+extern const int PathLimit = 100;
+extern int CurrLine;
+extern float Paths[PathLimit][2];
 //extern ProgressBar Bars[13];
 //extern Needle Needles[13];
