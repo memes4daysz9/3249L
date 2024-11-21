@@ -7,9 +7,6 @@ void initialize() {
 
 	
 	pros::Task ScreenInfo(ShowScreen);
-
-	log_init();
-	LOG_ALWAYS("In Initialize");
 	pros::lcd::initialize();
 	pros::lcd::set_text(1, "Hello PROS User!");
 
@@ -19,8 +16,8 @@ void initialize() {
 	pros::Motor BLXMotor_initializer (3,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);//idk why VScode isnt happy
 	pros::Motor BRXMotor_initializer (7,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
   
-	pros::Motor LeftMotor_initializer(5,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);//odom
-	pros::Motor RightMotor_initializer(-6,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
+	pros::Motor LeftIn_initializer(5,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
+	pros::Motor RightIn_initializer(-6,pros::v5::MotorGears::green,pros::v5::MotorUnits::degrees);
 
 	pros::adi::Encoder Xaxis ('B','C',false);
 	
@@ -29,9 +26,7 @@ void initialize() {
 	pros::Motor BLXMotor (3);
 	pros::Motor BRXMotor (4);
 
-	pros::Motor LeftMotor(5);
-	pros::Motor RightMotor(6);
-
-    void lv_init();
+	pros::Motor LeftIn(5);
+	pros::Motor RightIn(6);
 
 }

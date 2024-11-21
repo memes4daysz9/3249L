@@ -62,8 +62,8 @@ void opcontrol()
     pros::Motor BLXMotor(3); // testing
     pros::Motor BRXMotor(-7);
 
-    pros::Motor LeftMotor(5);
-    pros::Motor RightMotor(6);
+    pros::Motor LeftIn(5);
+    pros::Motor RightIn(-6);
 
     pros::Controller MainController(pros::E_CONTROLLER_MASTER);
     pros::adi::DigitalIn AutoTuneButton(1);
@@ -103,12 +103,13 @@ void opcontrol()
         FRXMotor.move_voltage((120 * (100 * (((1 - curve) * fright) / 100 + (curve * pow(fright / 100, 7))))) * Limiter);
         BLXMotor.move_voltage((120 * (100 * (((1 - curve) * bleft) / 100 + (curve * pow(bleft / 100, 7))))) * Limiter); // parentheses galore
         BRXMotor.move_voltage((120 * (100 * (((1 - curve) * bright) / 100 + (curve * pow(bright / 100, 7))))) * Limiter);
-
+        /*
         LeftMotor.set_current_limit(25 * left);
         RightMotor.set_current_limit(25 * right); // for helping temps
 
         LeftMotor.move_voltage(120 * left);   // testing
         RightMotor.move_voltage(120 * right); // so jank
+        */
 
             bot.MaxTemp = (FLXMotor.get_temperature() + FRXMotor.get_temperature() + BLXMotor.get_temperature() + BRXMotor.get_temperature()) / 4;
 
@@ -116,6 +117,13 @@ void opcontrol()
             //lamba off
 
         }*/
+        if (MainController.get_digital(DIGITAL_R2)){
+            LeftIn.move_voltage(12000 * bot.IntakeSpeed);//positive voltage intakes. 
+            RightIn.move_voltage(12000 * bot.IntakeSpeed);
+        }else if (MainController.get_digital(DIGITAL_R1)){
+            LeftIn.move_voltage(-120000 * bot.IntakeSpeed);//Negative Climbs the bot
+            RightIn.move_voltage(-120000 * bot.IntakeSpeed);
+        }
         if (MainController.get_digital(DIGITAL_UP)){
             Cheese();
         }

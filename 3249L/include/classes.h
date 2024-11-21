@@ -18,6 +18,7 @@ class Bot{
     double y;
     bool failed;
     float MaxTemp;
+    float IntakeSpeed;
     //very much needed`
     Bot();
     bool MoveToPoint(float x,float y);//deprecatted
@@ -34,6 +35,7 @@ class Lambda{
     Lambda();
     void Activate();//Lambda.Activate();
     void Deactivate();//Lambda.DeActivate();
+    void Toggle();
 };
 extern Lambda lambda;
 class Conveyor{

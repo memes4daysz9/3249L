@@ -16,12 +16,18 @@ Bot::Bot(){
     double Heading;
     bool PurePursuit;
     double error;
+    float IntakeSpeed;
     
 }
 
 Lambda lambda;
 Lambda::Lambda(){
     bool status;
+}
+int StepperL;
+void Lambda::Toggle(){
+    StepperL = ((StepperL + 1)*(StepperL < 1));
+    
 }
 
 Conveyor conveyor;
