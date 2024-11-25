@@ -12,12 +12,16 @@ Bot::Bot(){
     double LDis;
     double RDis;
     double XDis;
+
     float MaxTemp;
+    
     double Heading;
     bool PurePursuit;
     double error;
     float IntakeSpeed;
-    
+
+    int ErrorCode;
+    int ErrorSector;//stuff like which motor
 }
 
 Lambda lambda;

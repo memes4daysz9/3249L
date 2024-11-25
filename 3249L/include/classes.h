@@ -20,6 +20,9 @@ class Bot{
     float MaxTemp;
     float IntakeSpeed;
     //very much needed`
+    bool Interupt;
+    int ErrorCode;
+    int ErrorSector;//stuff like which motor
     Bot();
     bool MoveToPoint(float x,float y);//deprecatted
     bool MoveRelative(float x, float y);

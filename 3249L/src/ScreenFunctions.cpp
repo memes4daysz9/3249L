@@ -69,6 +69,12 @@ void ShowScreen()
   pros::screen::set_pen(0xffffff);
   while (true)
   {
+    if (bot.Interupt){
+      pros::screen::set_pen(0x001e56); // hear me out
+      pros::screen::fill_rect(1, 1, 480, 240);
+      pros::screen::set_pen(0xff0000);
+      pros::screen::print(pros::E_TEXT_LARGE, 3, "ERROR! Error code: %3d-%3d",bot.ErrorCode,bot.ErrorSector);
+    }
     InitialTime = clock();
     pros::lcd::register_btn1_cb(on_center_button);
     /*pros::screen::set_pen(0x0);//set pen color

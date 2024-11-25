@@ -1,8 +1,10 @@
 #include "main.h"
 
-int Stepper = 0;
+uint8_t Stepper = 0;
 
-/*void ToggleBrakeMode(){
+pros::motor_brake_mode_e_t BrakeMode [3] = {MOTOR_BRAKE_COAST,MOTOR_BRAKE_BRAKE,MOTOR_BRAKE_HOLD};// if it works it works
+
+void ToggleBrakeMode(){
     pros::Motor FLXMotor(-1);
     pros::Motor FRXMotor(2);
     pros::Motor BLXMotor(3); // testing
@@ -15,8 +17,8 @@ int Stepper = 0;
     }else{
         Stepper = 0;
     }
-    FLXMotor.set_brake_mode(Stepper);
-    FRXMotor.set_brake_mode(Stepper);
-    BLXMotor.set_brake_mode(Stepper);
-    BRXMotor.set_brake_mode(Stepper);
-}*/
+    FLXMotor.set_brake_mode(BrakeMode[Stepper]);
+    FRXMotor.set_brake_mode(BrakeMode[Stepper]);
+    BLXMotor.set_brake_mode(BrakeMode[Stepper]);
+    BRXMotor.set_brake_mode(BrakeMode[Stepper]);
+}

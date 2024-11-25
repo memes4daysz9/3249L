@@ -26,8 +26,7 @@ extern double RadToDeg(double x) {
     return (x* (180/M_PI));
 }
 
-extern int sgn(double x){
-	return (x>0) - (x<0);}
+extern int sgn(double x){return (x>0) - (x<0);}
 
 
 
