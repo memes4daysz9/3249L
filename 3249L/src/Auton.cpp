@@ -1,3 +1,9 @@
-#include"main.h"
+#include "main.h"
 
-// ALL frontend coding in this area, no definitions other than the auton function
+void autonomus(){
+
+    pros::Controller MainController(pros::E_CONTROLLER_MASTER);
+
+
+
+}

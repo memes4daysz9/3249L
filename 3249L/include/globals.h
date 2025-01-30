@@ -13,6 +13,7 @@ extern void LogALLvalues();
 extern void AutoTune();
 extern void Odometry();
 extern void ShowScreen();
+extern void IntakeTracking();
 extern const double diameter;
 extern const double TrackLength;
 extern const double Tolerance;

@@ -10,16 +10,13 @@ void MoveAllMotors(float Voltage){//going forward
 	pros::Motor FLXMotor (-1);
 	pros::Motor FRXMotor (2);
 	pros::Motor BLXMotor (3);
-	pros::Motor BRXMotor (-7);
+	pros::Motor BRXMotor (-4);
 
-	pros::Motor LeftMotor(5);
-	pros::Motor RightMotor(6);
+
     FLXMotor.move_voltage(Voltage);
     FRXMotor.move_voltage(Voltage);
-    BLXMotor.move_voltage(Voltage*(-1));
-    BRXMotor.move_voltage(Voltage*(-1));
-    LeftMotor.move_voltage(Voltage);
-    RightMotor.move_voltage(Voltage);
+    BLXMotor.move_voltage(Voltage);
+    BRXMotor.move_voltage(Voltage);
 }
 void MoveXMotorsF(float Voltage){//for going forward
 	pros::Motor FLXMotor (-1);

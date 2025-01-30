@@ -14,11 +14,11 @@ Bot::Bot(){
     double XDis;
 
     float MaxTemp;
-    
     double Heading;
     bool PurePursuit;
     double error;
     float IntakeSpeed;
+    bool Interupt = false;
 
     int ErrorCode;
     int ErrorSector;//stuff like which motor
@@ -29,15 +29,19 @@ Lambda::Lambda(){
     bool status;
 }
 int StepperL;
+pros::adi::DigitalOut lambdap(7);
 void Lambda::Toggle(){
-    StepperL = ((StepperL + 1)*(StepperL < 1));
-    
+    StepperL = ((StepperL + 1)*(StepperL < 1)); // 0 and 1
+    lambdap.set_value(StepperL);
 }
 
 Conveyor conveyor;
 Conveyor::Conveyor(){
     bool Climbing;
     bool Intaking;
+    int ClimbDistance;// Total distance climbed so far, in inches
+    float CurrentTier;// a more user friendly version of climb distance
+    float DistanceMoved;//Raw movement
 }
 
 Logger logger;

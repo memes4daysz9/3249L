@@ -29,14 +29,14 @@ void MoterTempCheck(){
     pros::Motor FLXMotor(-1);
     pros::Motor FRXMotor(2);
     pros::Motor BLXMotor(3); // testing
-    pros::Motor BRXMotor(-7);
+    pros::Motor BRXMotor(-4);
 
     float FrontMax = std::max(FLXMotor.get_temperature(),FRXMotor.get_temperature());
     float BackMax = std::max(BLXMotor.get_temperature(), BRXMotor.get_temperature());
 
     float AllMax = std::max(FrontMax, BackMax);
     if(AllMax > max){
-        bot.ErrorSector = ((FLXMotor.get_temperature() >= max) *1000)+ ((FRXMotor.get_temperature() >= max) * 100) + ((BLXMotor.get_temperature() >= max)*10) + (BRXMotor.get_temperature() >= max);
+        //bot.ErrorSector = ((FLXMotor.get_temperature() >= max) *1000)+ ((FRXMotor.get_temperature() >= max) * 100) + ((BLXMotor.get_temperature() >= max)*10) + (BRXMotor.get_temperature() >= max);
         //longest statement ever
     }
     /*if(AllMax >= 60){

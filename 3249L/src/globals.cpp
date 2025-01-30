@@ -6,11 +6,12 @@
 
 	extern pros::Motor LeftMotor(5);
 	extern pros::Motor RightMotor(6);*/
+	
 extern constexpr double diameter = 3.25;
 extern constexpr double radius = diameter/2;
 extern constexpr double TrackLength = 8;
 extern constexpr double Tolerance = 36;
-extern double kP = 0;//might change this after AutoPID does its thing
+extern double kP = 20;//might change this after AutoPID does its thing
 extern double kI = 0;
 extern double kD = 0;
 

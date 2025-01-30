@@ -15,14 +15,14 @@ bool Bot::MoveRelative(float x, float y){
     pros::Motor FLXMotor(-1);
     pros::Motor FRXMotor(2);
     pros::Motor BLXMotor(3);
-    pros::Motor BRXMotor(-7);
+    pros::Motor BRXMotor(-4);
 
     pros::Motor LeftMotor(5);
     pros::Motor RightMotor(6);
 
     float T;
     float R; // Temps
-    float S; //what?
+    float S; //what? huh?
 
     float P1 = cos(T + (M_PI / 4)) * (-1);
     float P2 = sin(T + (M_PI / 4));
@@ -55,31 +55,42 @@ bool Bot::MoveRelative(float x, float y){
         BRXMotor.move_voltage(12000 * MoveBias[3]);
     }
 }
-bool MoveVertical(float dis){
-    float Combined = bot.x + bot.y;
+bool Bot::MoveVertical(float dis){
+    float Combined = bot.y;
     
-    bot.LTar = (Combined + InchesToDegrees(dis)*(dis>0))+(Combined - InchesToDegrees(dis)*(dis<0));
+    bot.LTar = InchesToDegrees(bot.y + dis);
 
     if (dis == 0)return false;// slight optimize for litterally no reason
 
     bot.error = bot.LTar - Combined;
 
+
+
+
     pros::Motor FLXMotor(-1);
     pros::Motor FRXMotor(2);
     pros::Motor BLXMotor(3);
-    pros::Motor BRXMotor(-7);
+    pros::Motor BRXMotor(-4);
+    
+    pros::Controller MainController(pros::E_CONTROLLER_MASTER);
+
     
     float i;
     float LastError;
 
     while (abs(bot.error) > Tolerance){
 
+    if (MainController.get_digital(DIGITAL_UP)){
+        kP += 1;
+    }else if (MainController.get_digital(DIGITAL_DOWN)){
+        kP = kP - 1;
+    }
         i = (i+bot.error) * kI;
 
         FLXMotor.move_voltage((bot.error * kP)+i+((bot.error - LastError) * kD));
-        BLXMotor.move_voltage((bot.error * kP)+i+((bot.error - LastError) * kD));
+        BLXMotor.move_voltage(((bot.error * kP)+i+((bot.error - LastError) * kD)) * -1);
         FRXMotor.move_voltage((bot.error * kP)+i+((bot.error - LastError) * kD));
-        BRXMotor.move_voltage((bot.error * kP)+i+((bot.error - LastError) * kD));   
+        BRXMotor.move_voltage(((bot.error * kP)+i+((bot.error - LastError) * kD)) * -1);   
         
         LastError = bot.error;
     }

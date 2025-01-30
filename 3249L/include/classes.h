@@ -12,6 +12,7 @@ class Bot{
     double RDis;
     double XDis;
     double error;
+
     bool PurePursuit;
     double Heading;
     double x;
@@ -45,9 +46,14 @@ class Conveyor{
     public:
     bool Climbing;
     bool Intaking;
+    int ClimbDistance;// Total distance climbed so far, in inches
+    float CurrentTier;// a more user friendly version of climb distance
+    float DistanceMoved;// Raw movement
     Conveyor();
     void Climb();//Conveyor.Climb();
     void Intake();//Conveyor.Intake();
+    float GoToClosestDefault();
+    void Tier();
 };
 extern Conveyor conveyor;
 class Logger{

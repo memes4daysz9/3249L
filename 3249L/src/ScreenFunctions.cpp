@@ -69,12 +69,13 @@ void ShowScreen()
   pros::screen::set_pen(0xffffff);
   while (true)
   {
-    if (bot.Interupt){
+    /*if (bot.Interupt){
       pros::screen::set_pen(0x001e56); // hear me out
       pros::screen::fill_rect(1, 1, 480, 240);
       pros::screen::set_pen(0xff0000);
-      pros::screen::print(pros::E_TEXT_LARGE, 3, "ERROR! Error code: %3d-%3d",bot.ErrorCode,bot.ErrorSector);
-    }
+      pros::screen::print(pros::E_TEXT_LARGE, 2, "ERROR! Error code: %3d-%3d",bot.ErrorCode,bot.ErrorSector);
+      pros::screen::print(pros::E_TEXT_MEDIUM, 4, "BOT INTERUPTED");
+    }*/
     InitialTime = clock();
     pros::lcd::register_btn1_cb(on_center_button);
     /*pros::screen::set_pen(0x0);//set pen color
@@ -120,14 +121,14 @@ void ShowScreen()
         pros::screen::print(pros::E_TEXT_SMALL, 7, "FPS:%3d", 1000 / ((1000 / FrameRate) - TimePast));
         pros::screen::print(pros::E_TEXT_SMALL, 8, "Time Between Clocks:%3d", TimePast);
       }
-      else
+      else if (WhichStats = 3)
       { // why have some when you can have ALL of them
-        pros::screen::print(pros::E_TEXT_SMALL, 1, "X:%3d, Y:%3d", bot.x, bot.y);
-        pros::screen::print(pros::E_TEXT_SMALL, 2, "LeftDeg:%3d, RightDeg:%3d, XDeg:%3d", bot.LDeg, bot.RDeg, bot.XDeg);
-        pros::screen::print(pros::E_TEXT_SMALL, 3, "Heading:%3d", bot.Heading);
-        pros::screen::print(pros::E_TEXT_SMALL, 4, "Error:%3d", bot.error);
-        pros::screen::print(pros::E_TEXT_SMALL, 5, "LeftDis:%3d, RightDis:%3d", bot.LDis, bot.RDis);
-        pros::screen::print(pros::E_TEXT_SMALL, 6, "ForwardTar%3d, RotateTar:%3d", bot.LTar, bot.RTar);
+        pros::screen::print(pros::E_TEXT_SMALL, 1, "X:%f, Y:%f", bot.x, bot.y);
+        //pros::screen::print(pros::E_TEXT_SMALL, 2, "LeftDeg:%f, RightDeg:%f, XDeg:%f", bot.LDeg, bot.RDeg, bot.XDeg);
+        pros::screen::print(pros::E_TEXT_SMALL, 3, "Heading:%f", bot.Heading);
+        pros::screen::print(pros::E_TEXT_SMALL, 4, "Error:%f", bot.error);
+        pros::screen::print(pros::E_TEXT_SMALL, 5, "LeftDis:%f, RightDis:%f", bot.LDis, bot.RDis);
+        pros::screen::print(pros::E_TEXT_SMALL, 6, "ForwardTar%f, RotateTar:%f", bot.LTar, bot.RTar);
         pros::screen::print(pros::E_TEXT_SMALL, 7, "FPS:%3d", 1000 / ((1000 / FrameRate) - TimePast));
         pros::screen::print(pros::E_TEXT_SMALL, 8, "Time Between Clocks:%3d", TimePast);
         pros::screen::print(pros::E_TEXT_SMALL, 9, "Average Temp: %3d", bot.MaxTemp);
